@@ -1,17 +1,16 @@
 package com.shri.eclipsetomaven;
 
 import java.io.File;
-
 import java.io.FileFilter;
-import java.io.FilenameFilter;
 
 import org.w3c.dom.Document;
+
+import com.shri.eclipsetomaven.util.XMLUtil;
 
 public class ReadClasspath {
 
 	private static final String WORKSPACE_ROOT = "/Users/shrikant/code";
-	private static final String CLASSPATH = ".classpath";
-	File workspaceRoot ;
+	File workspaceRoot;
 
 	public static void main(String args[]) throws Exception {
 		ReadClasspath readClasspath = new ReadClasspath();
@@ -24,7 +23,7 @@ public class ReadClasspath {
 	}
 
 	public  void displayFiles(File folder) {
-		File classpathFile = getClasspathFile(folder);
+		File classpathFile = ClasspathUtil.getClasspathFile(folder);
 		if (classpathFile == null) {
 			searchClasspathFileInSubfolders(folder);
 		} else {
@@ -34,7 +33,7 @@ public class ReadClasspath {
 	}
 
 	private  Document createPomXmlDoc(File classpathFile) {
-		Document classpathDoc = getClasspathDocument(classpathFile);
+		Document classpathDoc = XMLUtil.getDocument(classpathFile);
 		return createPomXmlDoc(classpathDoc);
 	}
 
@@ -60,27 +59,6 @@ public class ReadClasspath {
 	private  Document createPomXmlDoc(Document classpathDoc) {
 		ClasspathToPomConverter converter = new ClasspathToPomConverter(classpathDoc, workspaceRoot);
 		return converter.createPomDoc();
-	}
-
-	private  Document getClasspathDocument(File classpathFile) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private  File getClasspathFile(File directory) {
-		FilenameFilter filter = new FilenameFilter() {
-
-			public boolean accept(File dir, String name) {
-				return CLASSPATH.equals(name);
-			}
-		};
-
-		File[] files = directory.listFiles(filter);
-		if (files != null && files.length > 0)
-			return files[0];
-		else
-			return null;
-
 	}
 
 }

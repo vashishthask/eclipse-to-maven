@@ -2,6 +2,8 @@ package com.shri.eclipsetomaven;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,5 +35,13 @@ public class ClasspathToPomConverterTest {
 		String jarName = "audit-6.0.5-SNAPSHOT.jar";
 		String jarVersion = converter.getJarVersion(jarName);
 		assertEquals("6.0.5-SNAPSHOT", jarVersion);
+	}
+	
+	@Test
+	public void testSearchFolder() throws Exception {
+		String relativePath = "/LendNet Libraries Server";
+		File workspaceRoot = new File("/Users/shrikant/code/LendNet");
+		File folder = converter.searchFolder(relativePath, workspaceRoot);
+		System.out.println(folder.getAbsolutePath());
 	}
 }

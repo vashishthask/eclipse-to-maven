@@ -13,12 +13,20 @@ package com.shri.eclipsetomaven.util;
  *              java Find . -name "*.java"
  */
 
-import java.io.*;
-import java.nio.file.*;
-import java.nio.file.attribute.*;
-import static java.nio.file.FileVisitResult.*;
-import static java.nio.file.FileVisitOption.*;
-import java.util.*;
+import static java.nio.file.FileVisitResult.CONTINUE;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.PathMatcher;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FindFile {
@@ -28,6 +36,7 @@ public class FindFile {
 
         private final PathMatcher matcher;
         private int numMatches = 0;
+        List<Path> filesMatched = new ArrayList<Path>();
 
         Finder(String pattern) {
             matcher =
@@ -41,6 +50,7 @@ public class FindFile {
             Path name = file.getFileName();
             if (name != null && matcher.matches(name)) {
                 numMatches++;
+                filesMatched.add(file);
                 System.out.println(file);
             }
         }
@@ -100,6 +110,14 @@ public class FindFile {
         Finder finder = new Finder(pattern);
         Files.walkFileTree(startingDir, finder);
         finder.done();
+    }
+    
+    public List<Path> find(String startingPathStr, String fileName) throws IOException{
+		Path startingPath = Paths.get(startingPathStr);
+		
+		Finder finder = new Finder(fileName);
+		Files.walkFileTree(startingPath, finder);
+		return finder.filesMatched;
     }
 }
 

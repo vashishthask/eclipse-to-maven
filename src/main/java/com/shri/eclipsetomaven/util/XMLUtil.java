@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -291,5 +292,17 @@ public final class XMLUtil {
         transformer.transform(domSource, result);
         return writer.toString();
     }
+    
+	public static  Document getDocument(File classpathFile) {
+		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
+	      Document doc;
+		try {
+			DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
+			  doc = docBuilder.parse(classpathFile);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+		return doc;
+	}
 
 }
