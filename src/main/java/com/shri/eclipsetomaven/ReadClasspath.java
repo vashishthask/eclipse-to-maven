@@ -1,6 +1,7 @@
 package com.shri.eclipsetomaven;
 
 import java.io.File;
+
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 
@@ -8,17 +9,21 @@ import org.w3c.dom.Document;
 
 public class ReadClasspath {
 
+	private static final String WORKSPACE_ROOT = "/Users/shrikant/code";
 	private static final String CLASSPATH = ".classpath";
+	File workspaceRoot ;
 
 	public static void main(String args[]) throws Exception {
-		displayFiles("/Users/shrikant/code");
+		ReadClasspath readClasspath = new ReadClasspath();
+		readClasspath.displayFiles(WORKSPACE_ROOT);
 	}/* end main */
 
-	public static void displayFiles(String filePath) {
-		displayFiles(new File(filePath));
+	public  void displayFiles(String filePath) {
+		workspaceRoot = new File(filePath);
+		displayFiles(workspaceRoot);
 	}
 
-	public static void displayFiles(File folder) {
+	public  void displayFiles(File folder) {
 		File classpathFile = getClasspathFile(folder);
 		if (classpathFile == null) {
 			searchClasspathFileInSubfolders(folder);
@@ -28,15 +33,12 @@ public class ReadClasspath {
 		}
 	}
 
-	private static Document createPomXmlDoc(File classpathFile) {
+	private  Document createPomXmlDoc(File classpathFile) {
 		Document classpathDoc = getClasspathDocument(classpathFile);
-		System.out.println("CLASSPATH@@@@@@@@@@@@@@@@");
-		System.out.println(XMLUtil.prettyPrint(classpathFile));
-		Document pomXmlDoc = createPomXmlDoc(classpathDoc);
-		return pomXmlDoc;
+		return createPomXmlDoc(classpathDoc);
 	}
 
-	private static void searchClasspathFileInSubfolders(File folder) {
+	private  void searchClasspathFileInSubfolders(File folder) {
 		// get list of directories
 		File[] folders = folder.listFiles(new FileFilter() {
 			public boolean accept(File file) {
@@ -50,22 +52,22 @@ public class ReadClasspath {
 
 	}
 
-	private static void writePomToDisk(Document pomXmlDoc) {
+	private  void writePomToDisk(Document pomXmlDoc) {
 		// TODO Auto-generated method stub
 
 	}
 
-	private static Document createPomXmlDoc(Document classpathDoc) {
+	private  Document createPomXmlDoc(Document classpathDoc) {
+		ClasspathToPomConverter converter = new ClasspathToPomConverter(classpathDoc, workspaceRoot);
+		return converter.createPomDoc();
+	}
+
+	private  Document getClasspathDocument(File classpathFile) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private static Document getClasspathDocument(File classpathFile) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private static File getClasspathFile(File directory) {
+	private  File getClasspathFile(File directory) {
 		FilenameFilter filter = new FilenameFilter() {
 
 			public boolean accept(File dir, String name) {
