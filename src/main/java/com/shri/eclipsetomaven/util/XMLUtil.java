@@ -1,10 +1,11 @@
 package com.shri.eclipsetomaven.util;
 
-import org.apache.commons.io.IOUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,12 +16,13 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
+import org.apache.commons.io.IOUtils;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public final class XMLUtil {
     private static final DocumentBuilderFactory DOCUMENT_BUILDER_FACTORY = DocumentBuilderFactory.newInstance();
@@ -96,6 +98,13 @@ public final class XMLUtil {
         newElement.appendChild(d.createTextNode(tagValue));
         return newElement;
     }
+    
+	public static void addAttributeToElement(Document doc, Element projectElement,
+			String attributeName, String attributeValue) {
+		Attr xmlnsAttr = doc.createAttribute(attributeName);
+		xmlnsAttr.setValue(attributeValue);
+		projectElement.setAttributeNode(xmlnsAttr);
+	}
 
     /**
      * Inserts a new value for an XML tag specified by <code>tagName</code> name
@@ -265,6 +274,24 @@ public final class XMLUtil {
         }
         return null;
     }
+    
+    public static String prettyPrint(Document document) {
+        try {
+        	Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        	transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+        	//initialize StreamResult with File object to save to file
+        	StreamResult result = new StreamResult(new StringWriter());
+        	DOMSource source = new DOMSource(document);
+        	transformer.transform(source, result);
+
+        	return result.getWriter().toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static <K, V> String mapToXml(Map<K, V> map, String rootName, String childName, String keyName, String valueName) throws TransformerException, ParserConfigurationException {
         Document document = DOCUMENT_BUILDER_FACTORY.newDocumentBuilder().newDocument();
@@ -283,13 +310,20 @@ public final class XMLUtil {
         return getStringFromDocument(document);
     }
 
-    public static String getStringFromDocument(Document doc) throws TransformerException {
+    public static String getStringFromDocument(Document doc){
         DOMSource domSource = new DOMSource(doc);
         StringWriter writer = new StringWriter();
         StreamResult result = new StreamResult(writer);
         TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer transformer = tf.newTransformer();
-        transformer.transform(domSource, result);
+        Transformer transformer;
+		try {
+			transformer = tf.newTransformer();
+			transformer.transform(domSource, result);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new IllegalStateException(e);
+		}
+        
         return writer.toString();
     }
     
