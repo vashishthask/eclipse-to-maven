@@ -4,7 +4,8 @@ import java.io.File;
 
 public class EclipseToMaven {
 
-	private static final String WORKSPACE_ROOT = "C:\\dev\\workspace\\hg\\hg-support\\LendNet";
+//	private static final String WORKSPACE_ROOT = "C:\\dev\\workspace\\hg\\hg-support\\LendNet";
+	private static final String WORKSPACE_ROOT = "/Users/shrikant/code/LendNet/LendNet";
 	File workspaceRoot;
 
 	public static void main(String args[]) throws Exception {

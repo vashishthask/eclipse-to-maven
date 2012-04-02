@@ -30,7 +30,6 @@ public class ClasspathToPomConverter {
 	public ClasspathToPomConverter(Document classpathDoc, File workspaceRoot) {
 		this.classpathDoc = classpathDoc;
 		this.workspaceRoot = workspaceRoot;
-		pomDependencyCreator = new PomDependencyCreator(pomDoc);
 	}
 	
 	private Document pomDoc;
@@ -106,9 +105,9 @@ public class ClasspathToPomConverter {
 			Element dependenciesElement) {
 		List<Element> classpathEntries = getClasspathentryOfLibKind(classpathDoc2
 				.getDocumentElement());
+		pomDependencyCreator = new PomDependencyCreator(pomDoc);
 		for (Element classpathEntry : classpathEntries) {
 			String pathAttribute = classpathEntry.getAttribute(PATH_ATTRIBUTE);
-			
 			pomDependencyCreator.createPomDependencyFromClasspathEntry(dependenciesElement,
 					pathAttribute);
 		}
@@ -154,6 +153,7 @@ public class ClasspathToPomConverter {
 		List<Path> files = null;
 
 		try {
+			System.err.println("rootpath:"+rootPath + " pathAtt:"+pathAtt);
 			files = findFile.find(rootPath, pathAtt);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);

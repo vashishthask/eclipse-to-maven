@@ -53,7 +53,4 @@ public class WorkspaceClasspathToPomConverter {
 		// TODO Auto-generated method stub
 
 	}
-
-
-
 }

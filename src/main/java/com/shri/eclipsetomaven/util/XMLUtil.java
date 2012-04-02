@@ -277,15 +277,23 @@ public final class XMLUtil {
     
     public static String prettyPrint(Document document) {
         try {
-        	Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        	transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-        	//initialize StreamResult with File object to save to file
-        	StreamResult result = new StreamResult(new StringWriter());
-        	DOMSource source = new DOMSource(document);
-        	transformer.transform(source, result);
-
-        	return result.getWriter().toString();
+        	Transformer tf = TransformerFactory.newInstance().newTransformer();
+//        	transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+//
+//        	//initialize StreamResult with File object to save to file
+//        	StreamResult result = new StreamResult(new StringWriter());
+//        	DOMSource source = new DOMSource(document);
+//        	transformer.transform(source, result);
+//
+//        	return result.getWriter().toString();
+        	
+        	tf = TransformerFactory.newInstance().newTransformer();
+            tf.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            tf.setOutputProperty(OutputKeys.INDENT, "yes");
+            StreamResult stringResult = new StreamResult(new StringWriter());
+            tf.transform(new DOMSource(document), stringResult);
+            return stringResult.getWriter().toString();
 
         } catch (Exception e) {
             e.printStackTrace();
