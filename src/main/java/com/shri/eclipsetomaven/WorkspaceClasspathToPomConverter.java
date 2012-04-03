@@ -11,46 +11,45 @@ import com.shri.eclipsetomaven.util.XMLUtil;
 public class WorkspaceClasspathToPomConverter {
 	Document pomDoc;
 	private File workspaceRoot;
-	
 
 	public WorkspaceClasspathToPomConverter(File workspaceRoot) {
 		this.workspaceRoot = workspaceRoot;
 	}
 
-
-
-	public  void convert(File folder) {
-		File classpathFile = ClasspathUtil.getClasspathFile(folder);
+	public void convert(File parentFolder) {
+		File classpathFile = ClasspathUtil.getClasspathFile(parentFolder);
 		if (classpathFile == null) {
-			searchClasspathFileInSubfolders(folder);
+			convertInSubFolders(parentFolder);
 		} else {
+			System.err.println("CLASSPATH NAME:"
+					+ classpathFile.getAbsolutePath());
 			Document pomXmlDoc = createPomXmlDoc(classpathFile);
-			System.out.println(XMLUtil.prettyPrint(pomXmlDoc));
-			writePomToDisk(pomXmlDoc);
+			XMLUtil.prettyPrint(pomXmlDoc);
+//			writePomToDisk(pomXmlDoc, classpathFile.getParentFile());
 		}
 	}
-	
-	private  Document createPomXmlDoc(File classpathFile) {
+
+	private Document createPomXmlDoc(File classpathFile) {
 		Document classpathDoc = XMLUtil.getDocument(classpathFile);
-		ClasspathToPomConverter classpathToPomConverter = new ClasspathToPomConverter(classpathDoc, workspaceRoot);
+		ClasspathToPomConverter classpathToPomConverter = new ClasspathToPomConverter(
+				classpathDoc, workspaceRoot);
 		return classpathToPomConverter.createPomDoc();
 	}
 
-	private  void searchClasspathFileInSubfolders(File folder) {
+	private void convertInSubFolders(File parentFolder) {
 		// get list of directories
-		File[] folders = folder.listFiles(new FileFilter() {
+		File[] filteredSubFolders = parentFolder.listFiles(new FileFilter() {
 			public boolean accept(File file) {
-				return file.isDirectory()&& !".hg".equals(file.getName());
+				return file.isDirectory() && !".hg".equals(file.getName());
 			}
 		});
 
-		for (int i = 0; i < folders.length; i++) {
-			convert(folders[i]);
+		for (int i = 0; i < filteredSubFolders.length; i++) {
+			convert(filteredSubFolders[i]);
 		}
 	}
 
-	private  void writePomToDisk(Document pomXmlDoc) {
-		// TODO Auto-generated method stub
-
+	private void writePomToDisk(Document pomXmlDoc, File directoryToWriteTo) {
+		XMLUtil.writeDocumentToDisk(pomXmlDoc, directoryToWriteTo, "pom.xml");
 	}
 }

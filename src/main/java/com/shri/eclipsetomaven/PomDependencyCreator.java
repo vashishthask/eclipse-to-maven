@@ -18,9 +18,8 @@ public class PomDependencyCreator {
 	public void createPomDependencyFromClasspathEntry(
 			Element dependenciesElement, String pathAttribute) {
 		String jarName = getJarName(pathAttribute);
-		// TODO groupId is fixed for now
-		String groupId = "com.bankwest.lendnet";
 		String artifactId = getArtifactId(jarName);
+		String groupId = artifactId;
 		String jarVersion = getJarVersion(jarName);
 		createDependencyElement(dependenciesElement, groupId, artifactId,
 				jarVersion);
@@ -66,6 +65,4 @@ public class PomDependencyCreator {
 		appendedElement.appendChild(pomDoc.createTextNode(tagValue));
 		dependencyElement.appendChild(appendedElement);
 	}
-
-
 }

@@ -153,7 +153,6 @@ public class ClasspathToPomConverter {
 		List<Path> files = null;
 
 		try {
-			System.err.println("rootpath:"+rootPath + " pathAtt:"+pathAtt);
 			files = findFile.find(rootPath, pathAtt);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);

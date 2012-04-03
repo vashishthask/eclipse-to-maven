@@ -51,7 +51,6 @@ public class FindFile {
             if (name != null && matcher.matches(name)) {
                 numMatches++;
                 filesMatched.add(file);
-                System.out.println(file);
             }
         }
 
