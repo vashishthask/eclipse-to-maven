@@ -17,13 +17,23 @@ public class PomDependencyCreator {
 
 	public void createPomDependencyFromClasspathEntry(
 			Element dependenciesElement, String pathAttribute) {
+		createPomDependencyFromClasspathEntry(dependenciesElement, pathAttribute, null, null);
+	}
+
+	public void createPomDependencyFromClasspathEntry(
+			Element dependenciesElement, String pathAttribute, String groupId, String artifactId) {
 		String jarName = getJarName(pathAttribute);
-		String artifactId = getArtifactId(jarName);
-		String groupId = artifactId;
+		if(artifactId == null){
+			artifactId = getArtifactId(jarName);
+		}
+		if(groupId == null){
+			groupId = artifactId;
+		}
 		String jarVersion = getJarVersion(jarName);
 		createDependencyElement(dependenciesElement, groupId, artifactId,
 				jarVersion);
 	}
+
 	
 	String getArtifactId(String jarName) {
 		int indexOfAny = StringUtils.indexOfAny(jarName, NUMBERS);
