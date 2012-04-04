@@ -15,13 +15,14 @@ public class SrcWithLocalLibClasspathEntryProcessor implements
 
 	@Override
 	public void process(Element dependenciesElement,
-			Element classpathEntryElement, File workspaceRoot, Document pomDoc) {
+			Element classpathEntryElement, File workspaceRoot, Document pomDoc,  File classpathRoot) {
 		PomDependencyCreator pomDependencyCreator = new PomDependencyCreator(pomDoc);
 		String pathAttribute = classpathEntryElement.getAttribute(ClasspathConstants.PATH_ATTR);
 		try {
 			Configuration config = new PropertiesConfiguration("application.properties");
 			String groupId = config.getString("maven.dependency.groupId.default");
 			String artifactId = pathAttribute.substring(1);
+			artifactId = artifactId.replaceAll("\\s", "");
 			pomDependencyCreator.createPomDependencyFromClasspathEntry(
 					dependenciesElement, pathAttribute,groupId, artifactId);
 		} catch (ConfigurationException e) {

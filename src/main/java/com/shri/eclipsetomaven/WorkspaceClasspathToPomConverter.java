@@ -24,15 +24,16 @@ public class WorkspaceClasspathToPomConverter {
 			System.err.println("CLASSPATH NAME:"
 					+ classpathFile.getAbsolutePath());
 			Document pomXmlDoc = createPomXmlDoc(classpathFile);
-			XMLUtil.prettyPrint(pomXmlDoc);
-//			writePomToDisk(pomXmlDoc, classpathFile.getParentFile());
+//			XMLUtil.prettyPrint(pomXmlDoc);
+			writePomToDisk(pomXmlDoc, classpathFile.getParentFile());
 		}
 	}
 
 	private Document createPomXmlDoc(File classpathFile) {
+		File classpathRoot = classpathFile;
 		Document classpathDoc = XMLUtil.getDocument(classpathFile);
 		ClasspathToPomConverter classpathToPomConverter = new ClasspathToPomConverter(
-				classpathDoc, workspaceRoot);
+				classpathDoc, workspaceRoot, classpathRoot);
 		return classpathToPomConverter.createPomDoc();
 	}
 

@@ -11,7 +11,7 @@ public class LibClasspathEntryProcessor implements ClasspathEntryProcessor {
 
 	@Override
 	public void process(Element dependenciesElement,
-			Element classpathEntryElement, File workspaceRoot, Document pomDoc) {
+			Element classpathEntryElement, File workspaceRoot, Document pomDoc, File classpathRoot) {
 		PomDependencyCreator pomDependencyCreator = new PomDependencyCreator(pomDoc);
 		String pathAttribute = classpathEntryElement.getAttribute(ClasspathConstants.PATH_ATTR);
 		pomDependencyCreator.createPomDependencyFromClasspathEntry(dependenciesElement,

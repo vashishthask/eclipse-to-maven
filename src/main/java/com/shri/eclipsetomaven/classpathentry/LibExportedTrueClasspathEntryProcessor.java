@@ -10,7 +10,7 @@ public class LibExportedTrueClasspathEntryProcessor implements
 
 	@Override
 	public void process(Element dependenciesElement,
-			Element classpathEntryElement, File workspaceRoot, Document pomDoc) {
+			Element classpathEntryElement, File workspaceRoot, Document pomDoc, File classpathRoot) {
 		// TODO Auto-generated method stub
 
 	}

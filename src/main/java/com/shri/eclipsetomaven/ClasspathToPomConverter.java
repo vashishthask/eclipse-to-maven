@@ -11,24 +11,22 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.shri.eclipsetomaven.classpathentry.ClasspathConstants;
-import com.shri.eclipsetomaven.classpathentry.ClasspathEntryProcessor;
-import com.shri.eclipsetomaven.classpathentry.ClasspathEntryProcessorFactory;
 import com.shri.eclipsetomaven.util.XMLUtil;
 
 public class ClasspathToPomConverter {
 	
 	private File workspaceRoot;
 	private Document classpathDoc;
+	private Document pomDoc;
 
 	PomDependencyCreator pomDependencyCreator;
+	private File classpathRoot;
 
-	public ClasspathToPomConverter(Document classpathDoc, File workspaceRoot) {
+	public ClasspathToPomConverter(Document classpathDoc, File workspaceRoot, File classpathRoot) {
 		this.classpathDoc = classpathDoc;
 		this.workspaceRoot = workspaceRoot;
+		this.classpathRoot = classpathRoot;
 	}
-	
-	private Document pomDoc;
-	
 	
 	public Document createPomDoc() {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -51,7 +49,7 @@ public class ClasspathToPomConverter {
 
 		List<Element> classpathEntryElements = XMLUtil.getElements(
 				ClasspathConstants.CLASSPATHENTRY_TAG_NAME, classpathDoc.getDocumentElement());
-		ClasspathentryElementsProcessor processor = new ClasspathentryElementsProcessor(pomDoc, workspaceRoot);
+		ClasspathentryElementsProcessor processor = new ClasspathentryElementsProcessor(pomDoc, workspaceRoot, classpathRoot);
 		processor.process(dependenciesElement, classpathEntryElements);
 	}
 

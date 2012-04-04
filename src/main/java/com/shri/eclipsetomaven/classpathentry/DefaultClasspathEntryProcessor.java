@@ -9,7 +9,7 @@ public class DefaultClasspathEntryProcessor implements ClasspathEntryProcessor {
 
 	@Override
 	public void process(Element dependenciesElement,
-			Element classpathEntryElement, File workspaceRoot, Document pomDoc) {
+			Element classpathEntryElement, File workspaceRoot, Document pomDoc, File classpathRoot) {
 		//DO Nothing
 	}
 }

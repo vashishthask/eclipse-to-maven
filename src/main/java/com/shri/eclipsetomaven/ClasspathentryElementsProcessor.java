@@ -11,22 +11,24 @@ import com.shri.eclipsetomaven.classpathentry.ClasspathEntryProcessorFactory;
 
 public class ClasspathentryElementsProcessor {
 	
-	private Document pomDoc;
-	private File workspaceRoot;
+	private final Document pomDoc;
+	private final File workspaceRoot;
+	private final File classpathRoot;
 	
 	
 
-	public ClasspathentryElementsProcessor(Document pomDoc, File workspaceRoot) {
+	public ClasspathentryElementsProcessor(Document pomDoc, File workspaceRoot, File classpathRoot) {
 		super();
 		this.pomDoc = pomDoc;
 		this.workspaceRoot = workspaceRoot;
+		this.classpathRoot = classpathRoot;
 	}
 
 	public void process(Element dependenciesElement,
 			List<Element> classpathEntryElements) {
 		for (Element classpathEntryElement : classpathEntryElements) {
 			ClasspathEntryProcessor processor = ClasspathEntryProcessorFactory.create(classpathEntryElement);
-			processor.process(dependenciesElement, classpathEntryElement, workspaceRoot, pomDoc);
+			processor.process(dependenciesElement, classpathEntryElement, workspaceRoot, pomDoc, classpathRoot);
 		}
 	}
 
