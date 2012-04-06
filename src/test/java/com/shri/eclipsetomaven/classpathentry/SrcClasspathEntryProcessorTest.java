@@ -50,8 +50,8 @@ public class SrcClasspathEntryProcessorTest {
 		File sourceFile = new File(srcFolder, "Sample.java");
 		sourceFile.createNewFile();
 		
-//		File textFile = new File(folderToMove, "sample.txt");
-//		textFile.createNewFile();
+		File textFile = new File(folderToMove, "sample.txt");
+		textFile.createNewFile();
     }
     
     private void secondFolderSetup(File folderToMove) throws IOException {
@@ -60,8 +60,8 @@ public class SrcClasspathEntryProcessorTest {
         File sourceFile = new File(srcFolder, "Model.java");
         sourceFile.createNewFile();
         
-//        File textFile = new File(folderToMove, "model.txt");
-//        textFile.createNewFile();
+        File textFile = new File(folderToMove, "model.txt");
+        textFile.createNewFile();
     }
 
 

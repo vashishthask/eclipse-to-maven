@@ -24,6 +24,9 @@ public class FileUtil {
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
+        if(files == null || files.size() == 0){
+        	return null;
+        }
         return files.get(0).toFile();
     }
 

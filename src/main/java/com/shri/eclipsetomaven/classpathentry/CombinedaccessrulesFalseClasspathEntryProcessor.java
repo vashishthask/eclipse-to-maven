@@ -28,6 +28,10 @@ public class CombinedaccessrulesFalseClasspathEntryProcessor implements
         String pathAtt = classpathEntryElement
                 .getAttribute(ClasspathConstants.PATH_ATTR);
         File pathFolder = FileUtil.searchFolder(pathAtt, workspaceRoot);
+        if(pathFolder == null){
+        	System.err.println("Could not find folder with path:"+pathAtt);
+        	return;
+        }
         File classpathFile = ClasspathUtil.getClasspathFile(pathFolder);
         if (classpathFile != null) {
             Document classpathDoc = XMLUtil.getDocument(classpathFile);

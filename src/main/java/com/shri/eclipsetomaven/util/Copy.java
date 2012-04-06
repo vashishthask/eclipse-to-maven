@@ -45,7 +45,8 @@ public class Copy {
             try {
                 Files.copy(source, target, options);
             } catch (IOException x) {
-                System.err.format("Unable to copy: %s: %s%n", source, x);
+            	x.printStackTrace();
+                System.err.format("Unable to copy***: %s: %s%n", source, x);
             }
         }
     }
@@ -115,7 +116,7 @@ public class Copy {
             if (exc instanceof FileSystemLoopException) {
                 System.err.println("cycle detected: " + file);
             } else {
-                System.err.format("Unable to copy: %s: %s%n", file, exc);
+                System.err.format("Unable to copy**: %s: %s%n", file, exc);
             }
             return CONTINUE;
         }
