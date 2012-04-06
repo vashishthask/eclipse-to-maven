@@ -7,6 +7,8 @@ import org.apache.commons.io.FileUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.shri.eclipsetomaven.util.Copy;
+
 public class SrcClasspathEntryProcessor implements ClasspathEntryProcessor {
 
     @Override
@@ -32,23 +34,21 @@ public class SrcClasspathEntryProcessor implements ClasspathEntryProcessor {
     }
 
     private void moveSources(String pathAttribute, File classpathRoot,
-            String destinationFolder) {
-        File srcMainJavaDir = new File(classpathRoot, destinationFolder);
-        if (!srcMainJavaDir.exists()) {
-            srcMainJavaDir.mkdirs();
+            String destinationFolderName) {
+        File destinationFolder = new File(classpathRoot, destinationFolderName);
+        if (!destinationFolder.exists()) {
+            destinationFolder.mkdirs();
         }
-        try {
-            File sourceDirectory = new File(classpathRoot, pathAttribute);
-            
-            File[] files = sourceDirectory.listFiles();
-            if (files != null && files.length > 0) {
-                for (int i = 0; i < files.length; i++) {
-                    FileUtils.moveToDirectory(files[i], srcMainJavaDir, false);
-                }
+        File sourceDirectory = new File(classpathRoot, pathAttribute);
+
+        File[] files = sourceDirectory.listFiles();
+        if (files != null && files.length > 0) {
+            for (int i = 0; i < files.length; i++) {
+                // FileUtils.moveToDirectory(files[i], srcMainJavaDir, false);
+                Copy.copyFiles(files[i], destinationFolder, true, false, false);
+
             }
-            sourceDirectory.delete();
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
         }
+        sourceDirectory.delete();
     }
 }

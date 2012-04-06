@@ -30,7 +30,7 @@ public class WorkspaceClasspathToPomConverter {
     }
 
     private Document createPomXmlDoc(File classpathFile) {
-        File classpathRoot = classpathFile;
+        File classpathRoot = classpathFile.getParentFile();
         Document classpathDoc = XMLUtil.getDocument(classpathFile);
         ClasspathToPomConverter classpathToPomConverter = new ClasspathToPomConverter(
                 classpathDoc, workspaceRoot, classpathRoot);
