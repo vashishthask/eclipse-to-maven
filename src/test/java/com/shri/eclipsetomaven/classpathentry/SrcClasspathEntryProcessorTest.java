@@ -43,6 +43,26 @@ public class SrcClasspathEntryProcessorTest {
 	    assertTrue(newSourceFileLocation2.exists());
 
 	}
+	
+	@Test
+	public void testMoveToSrcMainJavaIfSrcAndTargetSame() throws IOException {
+		//setup java sources in a folder.
+	    File folderToMove = new File(rootFolder, "src");
+		firstFolderSetup(folderToMove);
+
+		File secondFolder = new File(rootFolder, "test");
+		secondFolderSetup(secondFolder );
+		
+		
+		processor.moveToSrcMainJava("src", rootFolder);
+		File newSourceFileLocation = new File(rootFolder, "src/main/java/com/shri/test/main/Sample.java");
+		assertTrue(newSourceFileLocation.exists());
+
+		processor.moveToSrcMainJava("test", rootFolder);
+	    File newSourceFileLocation2 = new File(rootFolder, "src/main/java/com/shri/test/model/Model.java");
+	    assertTrue(newSourceFileLocation2.exists());
+
+	}
 
     private void firstFolderSetup(File folderToMove) throws IOException {
         File srcFolder = new File(folderToMove, "com/shri/test/main");
