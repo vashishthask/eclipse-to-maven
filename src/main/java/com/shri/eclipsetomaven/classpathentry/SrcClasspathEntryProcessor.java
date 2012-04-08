@@ -21,12 +21,23 @@ public class SrcClasspathEntryProcessor implements ClasspathEntryProcessor {
 			File classpathRoot) {
 		String pathAttribute = classpathEntryElement
 				.getAttribute(ClasspathConstants.PATH_ATTR);
+		moveSourcesToMavenFolders(classpathRoot, pathAttribute);
+	}
+
+	void moveSourcesToMavenFolders(File classpathRoot,
+			String pathAttribute) {
 		if ("Resources".equals(pathAttribute)
 				|| "Properties".equals(pathAttribute)) {
 			moveToSrcMainResources(pathAttribute, classpathRoot);
+		} else if("test".equals(pathAttribute)){
+			moveToSrcTestJava(pathAttribute, classpathRoot);
 		} else {
 			moveToSrcMainJava(pathAttribute, classpathRoot);
 		}
+	}
+
+	private void moveToSrcTestJava(String pathAttribute, File classpathRoot) {
+		moveSources(pathAttribute, classpathRoot, "src/test/java");
 	}
 
 	void moveToSrcMainJava(String pathAttribute, File classpathRoot) {

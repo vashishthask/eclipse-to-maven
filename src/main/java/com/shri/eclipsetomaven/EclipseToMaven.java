@@ -11,7 +11,7 @@ public class EclipseToMaven {
 
 //    private static final String WORKSPACE_ROOT = "C:\\dev\\1\\workspace\\hg";
 //    private static final String WORKSPACE_ROOT = "C:\\dev\\1\\CalculatorsComponent\\Calculators";
-    private static final String WORKSPACE_ROOT = "/Users/shrikant/code/1/Calculators Component";
+    private static final String WORKSPACE_ROOT = "/Users/shrikant/temp/lendnet/workspace/hg";
     // private static final String WORKSPACE_ROOT =
     // "/Users/shrikant/code/LendNet/LendNet";
     private static final String DESTINATION_WORKSPACE_ROOT = "C:\\Temp\\LendNet";
