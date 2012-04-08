@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -194,7 +195,7 @@ public final class XMLUtil {
         if (element == null) {
             return null;
         }
-        NodeList nodes = element.getElementsByTagName(tagName.toLowerCase());
+        NodeList nodes = element.getElementsByTagName(tagName);
         if (nodes == null || nodes.getLength() <= 0) {
             return null;
         }
@@ -382,6 +383,16 @@ public final class XMLUtil {
         }
     }
 
+    public static Document getDocument(InputStream stream) {
+        DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
+            return docBuilder.parse(stream);
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+    
     public static Document getDocument(String xmlString) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {

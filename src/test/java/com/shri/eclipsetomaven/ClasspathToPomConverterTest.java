@@ -1,47 +1,36 @@
 package com.shri.eclipsetomaven;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
-import java.io.File;
+import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.shri.eclipsetomaven.util.XMLUtil;
 
 public class ClasspathToPomConverterTest {
-	WorkspaceClasspathToPomConverter converter;
+	ClasspathToPomConverter converter;
 	
-//	@Before
-//	public void setup(){
-//		converter = new WorkspaceClasspathToPomConverter(null, null);
-//	}
-//
-//	@Test
-//	public void testGetJarName() {
-//		String jarpath = "/LendNet/lib/audit-6.0.5-SNAPSHOT.jar";
-//		String jarName = converter.getJarName(jarpath);
-//		assertEquals("audit-6.0.5-SNAPSHOT.jar", jarName);
-//	}
-//	
-//	@Test
-//	public void testGetArtifactId() throws Exception {
-//		String jarName = "audit-6.0.5-SNAPSHOT.jar";
-//		String artifactId = converter.getArtifactId(jarName);
-//		System.out.println(artifactId);
-//		assertEquals("audit", artifactId);
-//	}
-//	
-//	@Test
-//	public void testGetJarVersion() throws Exception {
-//		String jarName = "audit-6.0.5-SNAPSHOT.jar";
-//		String jarVersion = converter.getJarVersion(jarName);
-//		assertEquals("6.0.5-SNAPSHOT", jarVersion);
-//	}
-//	
-//	@Test
-//	public void testSearchFolder() throws Exception {
-//		String relativePath = "/LendNet Libraries Server";
-//		File workspaceRoot = new File("C:\\dev\\workspace\\hg\\hg-support\\LendNet");
-//		File folder = converter.searchFolder(relativePath, workspaceRoot);
-//		System.out.println(folder.getAbsolutePath());
-//	}
+	@Test
+	public void testJarNamesWithoutVersion() throws Exception {
+		Document classpathDoc = XMLUtil.getDocument(this.getClass().getResourceAsStream("/classpath-sample2.xml"));
+		assertNotNull(classpathDoc);
+		converter = new ClasspathToPomConverter(classpathDoc, null, null);
+		Document pomDoc = converter.createPomDoc();
+		List<Element> elements = XMLUtil.getElements("dependency", pomDoc.getDocumentElement());
+		boolean elementFound = false;
+		for (Element element : elements) {
+			String artifactId = XMLUtil.getTagValue(element, "artifactId");
+			String jarVersion = XMLUtil.getTagValue(element, "jarVersion");
+			if("junit".equals(artifactId)){
+				elementFound = true;
+				assertEquals("", jarVersion);
+			}
+		}
+		assertTrue(elementFound);
+	}
 }

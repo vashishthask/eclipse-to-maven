@@ -19,7 +19,6 @@ public class ClasspathToPomConverter {
     private Document classpathDoc;
     private Document pomDoc;
 
-    PomDependencyCreator pomDependencyCreator;
     private File classpathRoot;
 
     public ClasspathToPomConverter(Document classpathDoc, File workspaceRoot,

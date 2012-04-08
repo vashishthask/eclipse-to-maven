@@ -40,8 +40,9 @@ public class PomDependencyCreator {
         int indexOfAny = StringUtils.indexOfAny(jarName, NUMBERS);
         if (indexOfAny != -1) {
             return jarName.substring(0, indexOfAny - 1);
+        } else {
+        	return jarName.substring(0, jarName.indexOf(".jar"));
         }
-        return "";
     }
 
     String getJarName(String pathAttribute) {
