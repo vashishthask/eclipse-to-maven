@@ -43,13 +43,12 @@ public class EclipseToMaven {
         // get list of directories
         File[] filteredSubFolders = parent.listFiles(new FileFilter() {
             public boolean accept(File file) {
-                return file.isDirectory() && file.getName().contains(" ");
+                return file.isDirectory();
             }
         });
 
         for (int i = 0; i < filteredSubFolders.length; i++) {
             directories.add(filteredSubFolders[i]);
-            System.out.println(filteredSubFolders[i].getAbsolutePath());
             findDirectoriesInWorkspace(filteredSubFolders[i]);
         }
     }

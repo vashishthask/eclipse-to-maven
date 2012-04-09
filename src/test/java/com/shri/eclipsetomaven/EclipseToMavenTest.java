@@ -20,6 +20,12 @@ public class EclipseToMavenTest {
 
 	}
 
+//	@Test
+//	public void testCopyCurrentWorkspaceToAnotherLocation() {
+//		EclipseToMaven eclipseToMaven = new EclipseToMaven();
+//		eclipseToMaven.copyCurrentWorkspaceToAnotherLocation();
+//	}
+	
 	@Test
 	public void testRemoveSpacesInDirectoryName() throws Exception {
 		File folder = tempFolder.newFolder();
@@ -29,5 +35,11 @@ public class EclipseToMavenTest {
 		File newFile = new File(folder, "folderwithspace");
 		assertTrue(newFile.exists() && newFile.isDirectory());
 		assertTrue(!folderWithSpace.exists());
+	}
+	
+	@Test
+	public void testFindDirectoriesInWorkspace() throws Exception {
+		eclipseToMaven.findDirectoriesInWorkspace(new File("/tmp/lendnet"));
+		eclipseToMaven.removeSpacesOfProjectFolders();
 	}
 }
