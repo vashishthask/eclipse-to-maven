@@ -3,9 +3,15 @@ package com.shri.eclipsetomaven;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.shri.eclipsetomaven.util.FileUtil;
 
 public class EclipseToMaven {
 
@@ -14,7 +20,7 @@ public class EclipseToMaven {
     private static final String WORKSPACE_ROOT = "/Users/shrikant/temp/lendnet/workspace/hg";
     // private static final String WORKSPACE_ROOT =
     // "/Users/shrikant/code/LendNet/LendNet";
-    private static final String DESTINATION_WORKSPACE_ROOT = "C:\\Temp\\LendNet";
+//    private static final String DESTINATION_WORKSPACE_ROOT = "C:\\Temp\\LendNet";
     File workspaceRoot;
     protected List<File> directories = new ArrayList<File>();
 
@@ -33,25 +39,29 @@ public class EclipseToMaven {
         removeSpacesOfProjectFolders();
     }
 
-    private void findDirectoriesInWorkspace(File parent) {
+    void findDirectoriesInWorkspace(File parent) {
         // get list of directories
         File[] filteredSubFolders = parent.listFiles(new FileFilter() {
             public boolean accept(File file) {
-                return file.isDirectory();
+                return file.isDirectory() && file.getName().contains(" ");
             }
         });
 
         for (int i = 0; i < filteredSubFolders.length; i++) {
             directories.add(filteredSubFolders[i]);
+            System.out.println(filteredSubFolders[i].getAbsolutePath());
             findDirectoriesInWorkspace(filteredSubFolders[i]);
         }
-
     }
 
-    private void removeSpacesOfProjectFolders() {
-        for (File directory : directories) {
-            removeSpacesInDirectoryName(directory);
-        }
+    void removeSpacesOfProjectFolders() {
+    	// Generate an iterator. Start just after the last element.
+    	ListIterator<File> li = directories.listIterator(directories.size());
+
+    	// Iterate in reverse.
+    	while(li.hasPrevious()) {
+    		removeSpacesInDirectoryName(li.previous());
+    	}
     }
 
     void removeSpacesInDirectoryName(File directory) {

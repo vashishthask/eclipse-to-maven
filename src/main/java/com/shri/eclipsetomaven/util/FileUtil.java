@@ -1,10 +1,10 @@
 package com.shri.eclipsetomaven.util;
 
 import java.io.BufferedReader;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
@@ -100,5 +100,15 @@ public class FileUtil {
             }
         }
     }
+    
+    public static void appendToFile(String fileName, String lineToAppend) {
+    	try {
+			FileWriter fw = new FileWriter(fileName,true); 
+			fw.write(lineToAppend+"\n");//appends the string to the file 
+			fw.close();
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		} 
+	}
 
 }
