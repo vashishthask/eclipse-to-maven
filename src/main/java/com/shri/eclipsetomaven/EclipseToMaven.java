@@ -3,21 +3,16 @@ package com.shri.eclipsetomaven;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.shri.eclipsetomaven.util.FileUtil;
 
 public class EclipseToMaven {
 
 //    private static final String WORKSPACE_ROOT = "C:\\dev\\1\\workspace\\hg";
 //    private static final String WORKSPACE_ROOT = "C:\\dev\\1\\CalculatorsComponent\\Calculators";
-    private static final String WORKSPACE_ROOT = "/Users/shrikant/temp/lendnet/workspace/hg";
+    private static final String WORKSPACE_ROOT = "/tmp/lendnet";
     // private static final String WORKSPACE_ROOT =
     // "/Users/shrikant/code/LendNet/LendNet";
 //    private static final String DESTINATION_WORKSPACE_ROOT = "C:\\Temp\\LendNet";

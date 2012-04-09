@@ -38,6 +38,7 @@ public class PomDependencyCreatorImpl implements PomDependencyCreator {
     PomDependency createPomDependency(String pathAttribute,
 			String groupId, String artifactId) {
 		assertNotNull(pathAttribute);
+		System.err.println("The path is:"+pathAttribute);
 		String jarName = getJarName(pathAttribute);
         if (artifactId == null) {
             artifactId = getArtifactId(jarName);
@@ -55,7 +56,12 @@ public class PomDependencyCreatorImpl implements PomDependencyCreator {
         if (indexOfAny != -1) {
             return jarName.substring(0, indexOfAny - 1);
         } else {
-        	return jarName.substring(0, jarName.indexOf(".jar"));
+        	System.err.println("The jar name is:"+jarName);
+        	int dotIndex = jarName.indexOf(".");
+        	if(dotIndex != -1){
+        		return jarName.substring(0, dotIndex);
+        	}
+			return jarName;
         }
     }
 

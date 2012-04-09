@@ -41,10 +41,20 @@ public class ClasspathToPomConverter {
 
         Element projectElement = createBasicPomStructure();
         addDependenciesFromClasspath(projectElement);
+        handleWebContentIfAny();
         return pomDoc;
     }
 
-    private void addDependenciesFromClasspath(Element projectElement) {
+    private void handleWebContentIfAny() {
+		File j2eeFile = new File(classpathRoot, ".j2ee");
+		File webContentFolder = new File(classpathRoot, "WebContent");
+		if(j2eeFile.exists() && webContentFolder.exists() && webContentFolder.isDirectory()){
+			EclipseToMavenFoldersMover foldersMover = new EclipseToMavenFoldersMover();
+			foldersMover.moveToSrcMainWebapp("WebContent", classpathRoot);
+		}
+	}
+
+	private void addDependenciesFromClasspath(Element projectElement) {
         Element dependenciesElement = createDependencyManagementElement(projectElement);
 
         List<Element> classpathEntryElements = XMLUtil.getElements(
