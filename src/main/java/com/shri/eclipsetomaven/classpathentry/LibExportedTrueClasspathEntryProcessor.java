@@ -5,6 +5,8 @@ import java.io.File;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.shri.eclipsetomaven.PomDependencyCreator;
+
 public class LibExportedTrueClasspathEntryProcessor implements
         ClasspathEntryProcessor {
 
@@ -12,7 +14,12 @@ public class LibExportedTrueClasspathEntryProcessor implements
     public void process(Element dependenciesElement,
             Element classpathEntryElement, File workspaceRoot, Document pomDoc,
             File classpathRoot) {
-        // TODO Auto-generated method stub
+        PomDependencyCreator pomDependencyCreator = new PomDependencyCreator(
+                pomDoc);
+        String pathAttribute = classpathEntryElement
+                .getAttribute(ClasspathConstants.PATH_ATTR);
+        pomDependencyCreator.createPomDependencyFromClasspathEntry(
+                dependenciesElement, pathAttribute);
 
     }
 
