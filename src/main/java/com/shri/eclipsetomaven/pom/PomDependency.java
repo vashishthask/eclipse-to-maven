@@ -1,4 +1,4 @@
-package com.shri.eclipsetomaven;
+package com.shri.eclipsetomaven.pom;
 
 public class PomDependency {
 	private final String groupId;

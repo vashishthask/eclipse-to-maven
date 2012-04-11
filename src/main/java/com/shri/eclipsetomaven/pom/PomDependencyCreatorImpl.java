@@ -1,4 +1,4 @@
-package com.shri.eclipsetomaven;
+package com.shri.eclipsetomaven.pom;
 
 import static junit.framework.Assert.assertNotNull;
 
@@ -14,8 +14,8 @@ public class PomDependencyCreatorImpl implements PomDependencyCreator {
         this.pomDoc = pomDoc;
     }
 
-    private static char[] NUMBERS = { '0', '1', '2', '3', '4', '5', '6', '7',
-            '8', '9' };
+    private static String[] NUMBERS = { "-0", "-1", "-2", "-3", "-4", "-5", "-6", "-7",
+            "-8", "-9" };
 
     @Override
 	public void createPomDependencyFromClasspathEntry(
@@ -54,7 +54,7 @@ public class PomDependencyCreatorImpl implements PomDependencyCreator {
     String getArtifactId(String jarName) {
         int indexOfAny = StringUtils.indexOfAny(jarName, NUMBERS);
         if (indexOfAny != -1) {
-            return jarName.substring(0, indexOfAny - 1);
+            return jarName.substring(0, indexOfAny);
         } else {
         	System.err.println("The jar name is:"+jarName);
         	int dotIndex = jarName.indexOf(".");
@@ -77,7 +77,7 @@ public class PomDependencyCreatorImpl implements PomDependencyCreator {
         }
         if (indexOfAny != -1 && jarIndex != -1) {
 
-            return jarName.substring(indexOfAny, jarIndex);
+            return jarName.substring(indexOfAny+1, jarIndex);
         }
         return "";
     }

@@ -1,4 +1,4 @@
-package com.shri.eclipsetomaven;
+package com.shri.eclipsetomaven.util;
 
 import static org.junit.Assert.assertNotNull;
 

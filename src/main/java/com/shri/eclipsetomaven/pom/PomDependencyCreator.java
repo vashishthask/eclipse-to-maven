@@ -1,4 +1,4 @@
-package com.shri.eclipsetomaven;
+package com.shri.eclipsetomaven.pom;
 
 import org.w3c.dom.Element;
 

@@ -10,12 +10,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class EclipseToMaven {
 
-//    private static final String WORKSPACE_ROOT = "C:\\dev\\1\\workspace\\hg";
-//    private static final String WORKSPACE_ROOT = "C:\\dev\\1\\CalculatorsComponent\\Calculators";
-    private static final String WORKSPACE_ROOT = "/tmp/lendnet";
-    // private static final String WORKSPACE_ROOT =
-    // "/Users/shrikant/code/LendNet/LendNet";
-//    private static final String DESTINATION_WORKSPACE_ROOT = "C:\\Temp\\LendNet";
+    private static final String WORKSPACE_ROOT = "C:\\dev\\2\\workspace\\hg\\hg-support\\LendNet";
     File workspaceRoot;
     protected List<File> directories = new ArrayList<File>();
 
@@ -69,11 +64,5 @@ public class EclipseToMaven {
     }
 
     void copyCurrentWorkspaceToAnotherLocation() {
-        // try {
-        // FileUtils.copyDirectory(new File(WORKSPACE_ROOT), new
-        // File(DESTINATION_WORKSPACE_ROOT));
-        // } catch (IOException e) {
-        // throw new IllegalStateException(e);
-        // }
     }
 }

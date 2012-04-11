@@ -1,7 +1,6 @@
 package com.shri.eclipsetomaven.util;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
-
 import static java.nio.file.FileVisitResult.SKIP_SUBTREE;
 import static java.nio.file.StandardCopyOption.COPY_ATTRIBUTES;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;

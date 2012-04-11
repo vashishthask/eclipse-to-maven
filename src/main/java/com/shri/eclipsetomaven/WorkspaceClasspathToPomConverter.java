@@ -5,6 +5,7 @@ import java.io.FileFilter;
 
 import org.w3c.dom.Document;
 
+import com.shri.eclipsetomaven.pom.ClasspathToPomConverter;
 import com.shri.eclipsetomaven.util.ClasspathUtil;
 import com.shri.eclipsetomaven.util.XMLUtil;
 

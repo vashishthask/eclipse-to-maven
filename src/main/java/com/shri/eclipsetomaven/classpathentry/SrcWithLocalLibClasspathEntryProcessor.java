@@ -8,8 +8,8 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.shri.eclipsetomaven.PomDependencyCreator;
-import com.shri.eclipsetomaven.PomDependencyCreatorImpl;
+import com.shri.eclipsetomaven.pom.PomDependencyCreator;
+import com.shri.eclipsetomaven.pom.PomDependencyCreatorImpl;
 
 public class SrcWithLocalLibClasspathEntryProcessor implements
         ClasspathEntryProcessor {

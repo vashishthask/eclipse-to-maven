@@ -10,6 +10,8 @@ public class ClasspathConstants {
     public static final String TRUE = "true";
     public static final String LIB_ATTR = "lib";
     public static final String COMBINEDACCESSRULES_ATTR = "combineaccessrules";
+    public static final String DIR_WEB_CONTENT = "WebContent";
+    public static final String FILE_J2EE = ".j2ee";
 
     private ClasspathConstants() {
         // private constructor to avoid instantiation
