@@ -31,5 +31,5 @@ eclipse-to-maven
 * Make sure JAVA_HOME is pointing to JDK-7
 * Run the following from command prompt:
 
-	mvn clean install exec:java -Dexec.args="&lt;eclipse workspace path&gt;"
+	$ mvn clean install exec:java -Dexec.args="&lt;eclipse workspace path&gt;"
 
