@@ -88,7 +88,7 @@ public class PomDependencyCreatorImpl implements PomDependencyCreator {
         dependenciesElement.appendChild(dependencyElement);
         appendElement(dependencyElement, "groupId", pomDependency.getGroupId());
         appendElement(dependencyElement, "artifactId", pomDependency.getArtifactId());
-        appendElement(dependencyElement, "jarVersion", pomDependency.getJarVersion());
+        appendElement(dependencyElement, "version", pomDependency.getJarVersion());
     }
 
     private void appendElement(Element dependencyElement, String tagName,

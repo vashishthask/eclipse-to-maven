@@ -52,6 +52,7 @@ public class WorkspaceClasspathToPomConverter {
     }
 
     private void writePomToDisk(Document pomXmlDoc, File directoryToWriteTo) {
-        XMLUtil.writeDocumentToDisk(pomXmlDoc, directoryToWriteTo, "pom.xml");
+//        XMLUtil.writeDocumentToDisk(pomXmlDoc, directoryToWriteTo, "pom.xml");
+        XMLUtil.writeDocument(pomXmlDoc, directoryToWriteTo, "pom.xml");
     }
 }

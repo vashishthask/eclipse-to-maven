@@ -41,7 +41,7 @@ public class ClasspathToPomConverterTest {
 		boolean elementFound = false;
 		for (Element element : elements) {
 			String artifactId = XMLUtil.getTagValue(element, "artifactId");
-			String jarVersion = XMLUtil.getTagValue(element, "jarVersion");
+			String jarVersion = XMLUtil.getTagValue(element, "version");
 			if("junit".equals(artifactId)){
 				elementFound = true;
 				assertEquals("", jarVersion);

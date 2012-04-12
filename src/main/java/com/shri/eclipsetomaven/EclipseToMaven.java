@@ -2,25 +2,36 @@ package com.shri.eclipsetomaven;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
 public class EclipseToMaven {
-
-    private static final String WORKSPACE_ROOT = "C:\\dev\\2\\workspace\\hg\\hg-support\\LendNet";
     File workspaceRoot;
     protected List<File> directories = new ArrayList<File>();
 
     public static void main(String args[]) throws Exception {
-        EclipseToMaven eclipseToMaven = new EclipseToMaven();
-        eclipseToMaven.maveniseTheEclipseWorkspace(WORKSPACE_ROOT);
+        if (args.length < 1)
+            usage();
+        EclipseToMaven eclipseToMaven = new EclipseToMaven(new File(args[0]));
+        eclipseToMaven.maveniseTheEclipseWorkspace();
+    }
+    
+    
+    public EclipseToMaven(File workspaceRoot) {
+        this.workspaceRoot = workspaceRoot;
     }
 
-    public void maveniseTheEclipseWorkspace(String workspaceRootPath) {
-        workspaceRoot = new File(workspaceRootPath);
+    static void usage() {
+        System.err.println("usage: java EclipseToMaven <eclipse workspace root>");
+        System.exit(-1);
+    }
+
+    public void maveniseTheEclipseWorkspace() {
         copyCurrentWorkspaceToAnotherLocation();
         WorkspaceClasspathToPomConverter converter = new WorkspaceClasspathToPomConverter(
                 workspaceRoot);
@@ -56,10 +67,13 @@ public class EclipseToMaven {
     void removeSpacesInDirectoryName(File directory) {
         String directoryName = directory.getName();
         if (StringUtils.contains(directoryName, ' ')) {
-            String destinationDirectoryName = StringUtils.remove(directoryName,
-                    ' ');
-            directory.renameTo(new File(directory.getParentFile(),
-                    destinationDirectoryName));
+            
+            String destinationDirectoryName = StringUtils.remove(directoryName,' ');
+            try {
+                FileUtils.moveDirectory(directory, new File(directory.getParent(),destinationDirectoryName ));
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
+            }
         }
     }
 

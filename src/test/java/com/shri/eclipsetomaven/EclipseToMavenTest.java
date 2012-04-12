@@ -3,6 +3,7 @@ package com.shri.eclipsetomaven;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -13,20 +14,20 @@ public class EclipseToMavenTest {
 	@Rule
 	public TemporaryFolder tempFolder = new TemporaryFolder();
 	private EclipseToMaven eclipseToMaven;
+	File rootFolder;
 	
 	@Before
-	public void setup() {
-		eclipseToMaven = new EclipseToMaven();
-
+	public void setup() throws IOException {
+	    rootFolder = tempFolder.newFolder();
+		eclipseToMaven = new EclipseToMaven(rootFolder);
 	}
 	
 	@Test
-	public void testRemoveSpacesInDirectoryName() throws Exception {
-		File folder = tempFolder.newFolder();
-		File folderWithSpace = new File(folder, "folder with space");
+	public void testRemoveSpacesInDirectoryName()  {
+		File folderWithSpace = new File(rootFolder, "folder with space");
 		folderWithSpace.mkdir();
 		eclipseToMaven.removeSpacesInDirectoryName(folderWithSpace);
-		File newFile = new File(folder, "folderwithspace");
+		File newFile = new File(rootFolder, "folderwithspace");
 		assertTrue(newFile.exists() && newFile.isDirectory());
 		assertTrue(!folderWithSpace.exists());
 	}
