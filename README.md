@@ -26,7 +26,7 @@ Running it from Eclipse
 * Import eclipse-to-maven in any eclipse workspace.
 * Right click EclipseToMaven --> Run As --> Run Configurations --> 
 * Pass the Eclipse workspace location with application Arguments as follows:
-[[File:eclipse-to-maven.png|link=http://sampreshan.svashishtha.com/wp-content/uploads/2012/04/eclipse-to-maven-2.png]] 
+![eclipse-to-maven args](http://sampreshan.svashishtha.com/wp-content/uploads/2012/04/eclipse-to-maven-2.png)
 * Run the application
 
 
