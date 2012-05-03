@@ -17,7 +17,7 @@
 * Copy existing workspace into a separate directory.
 
 ##Setup
-Please follow following src/main/java/resources/application.properties setup before running the application
+Please follow following `src/main/java/resources/application.properties` setup before running the application
 * For converting existing eclipse workspace to maven, set 'convert.to.maven' property as 'true'
 
     `convert.to.maven=true`
