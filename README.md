@@ -4,7 +4,7 @@
 #Features
 
 * Converts .classpath files into pom.xml
-* If required, prints the depdency graph of eclipse projects in the workspace.
+* If required, prints the depdency graph of eclipse projects.
 * Moves source folders according to Maven convention. So for instance Java sources go to src/main/java folder.
 * Removes spaces in the names of the folders. So "Calculator Component" becomes "CalculatorComponent"
 * Right now Mavenisation is limited to generating dependencies in the pom. However this is a good first step in moving forward. With small changes you should be able to run the build for your projects.
