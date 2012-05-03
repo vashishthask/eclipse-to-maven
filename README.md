@@ -16,6 +16,24 @@
 * Create the build of eclipse-to-maven using Maven "mvn clean install"
 * Copy existing workspace into a separate directory.
 
+##Setup
+Please follow following src/main/java/resources/application.properties setup before running the application
+* For converting existing eclipse workspace to maven, set 'convert.to.maven' property as 'true'
+
+    `convert.to.maven=true`
+* For printing the dependency tree of eclipse projects set following properties
+
+    `print.dependency.graph=true` 
+    
+    `print.dependency.graph.iotype=file` 
+    
+    `print.dependency.graph.filepath=/tmp/dependency.txt`
+* For internal dependencies groupId and project groupId , you may want to setup default as follows:
+
+    `maven.dependency.groupId.default=...`
+    
+    `maven.pom.groupId.default=...`
+
 ##Running it from Eclipse
 
 * Import eclipse-to-maven in any eclipse workspace.
