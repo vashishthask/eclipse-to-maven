@@ -22,21 +22,38 @@ public class CombinedaccessrulesFalseClasspathEntryProcessor implements
     public void process(Element dependenciesElement,
             Element classpathEntryElement, File workspaceRoot, Document pomDoc,
             File classpathRoot) {
-        this.pomDoc = pomDoc;
-        this.workspaceRoot = workspaceRoot;
-        this.classpathRoot = classpathRoot;
-        String pathAtt = classpathEntryElement
-                .getAttribute(ClasspathConstants.PATH_ATTR);
-        File pathFolder = FileUtil.searchFolder(pathAtt, workspaceRoot);
-        if(pathFolder == null){
-        	System.err.println("Could not find folder with path:"+pathAtt);
+        setupParameters(workspaceRoot, pomDoc, classpathRoot);
+        File referencedProjectFolder = getReferencedProjectFolder(classpathEntryElement);
+        if(referencedProjectFolder == null){
         	return;
         }
-        File classpathFile = ClasspathUtil.getClasspathFile(pathFolder);
+        handleClasspathOfReferencedProject(dependenciesElement, referencedProjectFolder);
+    }
+
+	private void handleClasspathOfReferencedProject(
+			Element dependenciesElement, File referencedProjectFolder) {
+		File classpathFile = ClasspathUtil.getClasspathFile(referencedProjectFolder);
         if (classpathFile != null) {
             Document classpathDoc = XMLUtil.getDocument(classpathFile);
             parseClasspathDoc(classpathDoc, dependenciesElement);
         }
+	}
+
+    private void setupParameters(File workspaceRoot, Document pomDoc,
+            File classpathRoot) {
+        this.pomDoc = pomDoc;
+        this.workspaceRoot = workspaceRoot;
+        this.classpathRoot = classpathRoot;
+    }
+    
+    private File getReferencedProjectFolder(Element classpathEntryElement){
+        String pathAtt = classpathEntryElement
+                .getAttribute(ClasspathConstants.PATH_ATTR);
+        File folder = FileUtil.searchFolder(pathAtt, workspaceRoot);
+        if(folder == null){
+            System.err.println("Could not find folder with path:"+pathAtt);
+        }
+        return folder;
     }
 
     private void parseClasspathDoc(Document classpathDoc,

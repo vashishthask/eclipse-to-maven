@@ -1,5 +1,6 @@
 package com.shri.eclipsetomaven;
 
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -10,8 +11,12 @@ import java.util.ListIterator;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
+import com.shri.eclipsetomaven.util.ApplicationConfig;
+import static com.shri.eclipsetomaven.ApplicationPropertyConstants.*;
+
 public class EclipseToMaven {
-    File workspaceRoot;
+    
+	File workspaceRoot;
     protected List<File> directories = new ArrayList<File>();
 
     public static void main(String args[]) throws Exception {
@@ -37,7 +42,9 @@ public class EclipseToMaven {
                 workspaceRoot);
         converter.convert(workspaceRoot);
         findDirectoriesInWorkspace(workspaceRoot);
-        removeSpacesOfProjectFolders();
+        if("true".equals(ApplicationConfig.INSTANCE.getValue(WORKSPACE_PROJECTNAME_REMOVE_SPACE))){
+            removeSpacesOfProjectFolders();
+        }
     }
 
     void findDirectoriesInWorkspace(File parent) {
