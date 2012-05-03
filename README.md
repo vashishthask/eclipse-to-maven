@@ -28,7 +28,7 @@ Please follow following `src/main/java/resources/application.properties` setup b
     
     `print.dependency.graph.iotype=file`
     
-    `print.dependency.graph.filepath=/tmp/dependency.txt`
+    `print.dependency.graph.filepath=<file path>`
 
 * For internal dependencies groupId and project groupId , you may want to setup default as follows:
 
