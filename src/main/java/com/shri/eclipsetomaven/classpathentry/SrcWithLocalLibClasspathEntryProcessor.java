@@ -27,8 +27,6 @@ public class SrcWithLocalLibClasspathEntryProcessor implements
 		String groupId =  ApplicationConfig.INSTANCE.getValue(MAVEN_DEPENDENCY_GROUP_ID_DEFAULT);
 		String artifactId = pathAttribute.substring(1);
 		artifactId = artifactId.replaceAll("\\s", "");
-		System.err.println("The classpath root is:"
-				+ classpathRoot.getAbsolutePath());
 		pomDependencyCreator.createPomDependencyFromClasspathEntry(
 				dependenciesElement, pathAttribute, groupId, artifactId);
 

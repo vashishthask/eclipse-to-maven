@@ -52,7 +52,6 @@ public class MoveTree implements FileVisitor {
 	@Override
 	public FileVisitResult preVisitDirectory(Object dir,
 			BasicFileAttributes attrs) throws IOException {
-		System.out.println("Move directory: " + (Path) dir);
 		Path newdir = moveTo.resolve(moveFrom.relativize((Path) dir));
 		try {
 			Files.copy((Path) dir, newdir, REPLACE_EXISTING, COPY_ATTRIBUTES);

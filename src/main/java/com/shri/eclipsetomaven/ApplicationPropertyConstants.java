@@ -8,4 +8,5 @@ public class ApplicationPropertyConstants {
 	public static final String PRINT_DEPENDENCY_GRAPH_IOTYPE = "print.dependency.graph.iotype";
 	public static final String PRINT_DEPENDENCY_GRAPH_IOTYPE_CONSOLE = "console";
 	public static final String PRINT_DEPENDENCY_GRAPH_IOTYPE_FILE = "file";
+	public static final String CONVERT_TO_MAVEN = "convert.to.maven";
 }

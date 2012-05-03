@@ -10,9 +10,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.shri.eclipsetomaven.ApplicationPropertyConstants;
 import com.shri.eclipsetomaven.ClasspathentryElementsProcessor;
 import com.shri.eclipsetomaven.EclipseToMavenFoldersMover;
 import com.shri.eclipsetomaven.classpathentry.ClasspathConstants;
+import com.shri.eclipsetomaven.util.ApplicationConfig;
 import com.shri.eclipsetomaven.util.XMLUtil;
 
 public class ClasspathToPomConverter {
@@ -45,7 +47,9 @@ public class ClasspathToPomConverter {
         Element projectElement = basicPomStructure.createBasicPomStructure();
         
         addDependenciesFromClasspath(projectElement);
-        handleWebContentIfAny();
+        if("true".equals(ApplicationConfig.INSTANCE.getValue(ApplicationPropertyConstants.CONVERT_TO_MAVEN))){
+            handleWebContentIfAny();
+        }
         return pomDoc;
     }
 
