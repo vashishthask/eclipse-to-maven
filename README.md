@@ -37,7 +37,7 @@ Please follow following `src/main/java/resources/application.properties` setup b
 
 	`maven.pom.groupId.default=...`
 
-##Running it from Eclipse
+##Running eclipse-to-maven from Eclipse
 
 * Import eclipse-to-maven in any eclipse workspace.
 * Right click EclipseToMaven --> Run As --> Run Configurations --> 
