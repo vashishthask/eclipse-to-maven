@@ -1,5 +1,7 @@
 package com.shri.eclipsetomaven.pom;
 
+import static com.shri.eclipsetomaven.ApplicationPropertyConstants.MAVEN_MODULE_GROUP_ID;
+
 import java.io.File;
 
 import org.apache.commons.lang.StringUtils;
@@ -7,6 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.shri.eclipsetomaven.classpathentry.ClasspathConstants;
+import com.shri.eclipsetomaven.util.ApplicationConfig;
 import com.shri.eclipsetomaven.util.XMLUtil;
 
 public class BasicPomStructure {
@@ -42,10 +45,19 @@ public class BasicPomStructure {
 
     private void addDefaultElementsToProjectElement(Element projectElement) {
         addModelVersion(projectElement);
+        addGroupId(projectElement);
         addArtifactId(projectElement);
         addPackaging(projectElement);
         addName(projectElement);
     }
+
+
+    private void addGroupId(Element projectElement) {
+        Element groupIdElement = pomDoc.createElement(PomConstants.GROUP_ID);
+        projectElement.appendChild(groupIdElement);
+        groupIdElement.appendChild(pomDoc.createTextNode(ApplicationConfig.INSTANCE.getValue(MAVEN_MODULE_GROUP_ID)));
+    }
+
 
 
     private void addName(Element projectElement) {
