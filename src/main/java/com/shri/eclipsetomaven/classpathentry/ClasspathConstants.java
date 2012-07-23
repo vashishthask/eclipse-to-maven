@@ -12,6 +12,7 @@ public class ClasspathConstants {
     public static final String COMBINEDACCESSRULES_ATTR = "combineaccessrules";
     public static final String DIR_WEB_CONTENT = "WebContent";
     public static final String FILE_J2EE = ".j2ee";
+    public static final String EXPORTED = "exported";
 
     private ClasspathConstants() {
         // private constructor to avoid instantiation

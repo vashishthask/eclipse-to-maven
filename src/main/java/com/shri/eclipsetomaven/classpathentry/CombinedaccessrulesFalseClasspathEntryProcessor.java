@@ -23,21 +23,47 @@ public class CombinedaccessrulesFalseClasspathEntryProcessor implements
             Element classpathEntryElement, File workspaceRoot, Document pomDoc,
             File classpathRoot) {
         setupParameters(workspaceRoot, pomDoc, classpathRoot);
-        File referencedProjectFolder = getReferencedProjectFolder(classpathEntryElement);
-        if(referencedProjectFolder == null){
-        	return;
+        boolean exported = isExported(classpathEntryElement);
+        includeReferencedProject(dependenciesElement, classpathEntryElement);
+        if (exported) {
+            includeLibrariesOfReferencedProject(dependenciesElement, classpathEntryElement);
         }
-        handleClasspathOfReferencedProject(dependenciesElement, referencedProjectFolder);
     }
 
-	private void handleClasspathOfReferencedProject(
-			Element dependenciesElement, File referencedProjectFolder) {
-		File classpathFile = ClasspathUtil.getClasspathFile(referencedProjectFolder);
+    private void includeReferencedProject(Element dependenciesElement,
+            Element classpathEntryElement) {
+        LocalLibDependencyCreator dependencyCreator = new LocalLibDependencyCreator();
+        dependencyCreator.createLocalLibDependency(classpathEntryElement, dependenciesElement, pomDoc);
+    }
+
+    private void includeLibrariesOfReferencedProject(
+            Element dependenciesElement, Element classpathEntryElement) {
+        File referencedProjectFolder = getReferencedProjectFolder(classpathEntryElement);
+        if (referencedProjectFolder == null) {
+            return;
+        }
+        handleClasspathOfReferencedProject(dependenciesElement,
+                referencedProjectFolder);
+    }
+
+    private boolean isExported(Element classpathEntryElement) {
+        String exported = classpathEntryElement
+                .getAttribute(ClasspathConstants.EXPORTED);
+        if ("true".equals(exported)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void handleClasspathOfReferencedProject(
+            Element dependenciesElement, File referencedProjectFolder) {
+        File classpathFile = ClasspathUtil
+                .getClasspathFile(referencedProjectFolder);
         if (classpathFile != null) {
             Document classpathDoc = XMLUtil.getDocument(classpathFile);
             parseClasspathDoc(classpathDoc, dependenciesElement);
         }
-	}
+    }
 
     private void setupParameters(File workspaceRoot, Document pomDoc,
             File classpathRoot) {
@@ -45,13 +71,13 @@ public class CombinedaccessrulesFalseClasspathEntryProcessor implements
         this.workspaceRoot = workspaceRoot;
         this.classpathRoot = classpathRoot;
     }
-    
-    private File getReferencedProjectFolder(Element classpathEntryElement){
+
+    private File getReferencedProjectFolder(Element classpathEntryElement) {
         String pathAtt = classpathEntryElement
                 .getAttribute(ClasspathConstants.PATH_ATTR);
         File folder = FileUtil.searchFolder(pathAtt, workspaceRoot);
-        if(folder == null){
-            System.err.println("Could not find folder with path:"+pathAtt);
+        if (folder == null) {
+            System.err.println("Could not find folder with path:" + pathAtt);
         }
         return folder;
     }
