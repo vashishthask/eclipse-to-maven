@@ -19,9 +19,13 @@
 
 ##Setup
 Please follow following `src/main/java/resources/application.properties` setup before running the application
-* For converting existing eclipse workspace to maven, set 'convert.to.maven' property as 'true'
+* For converting existing eclipse workspace to maven, set 'convert.to.maven' property as 'true'. This switch is useful if you just want to print the dependency tree (read-only operation) for instance.
 
     `convert.to.maven=true`
+
+* For removing spaces in folder names, use following switch:
+
+    `workspace.projectname.remove.space=true`
 
 * For printing the dependency tree of eclipse projects set following properties
 
