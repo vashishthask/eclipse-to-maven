@@ -12,8 +12,7 @@
 #Getting Started
 
 ##Preparation
-* As eclipse-to-maven uses java.nio features of JDK-7, you need to have it or download it from either [openjdk] (http://openjdk.java.net/projects/jdk7/) or from [Oracle JDK location] (http://jdk7.java.net/)
-* Declare an environment variable called JAVA_HOME_7 which points to the JDK-7 home directory.
+* As eclipse-to-maven uses java.nio features, you need to have JDK 1.7+
 * Create the build of eclipse-to-maven using Maven "mvn clean install"
 * Copy existing workspace into a separate directory.
 

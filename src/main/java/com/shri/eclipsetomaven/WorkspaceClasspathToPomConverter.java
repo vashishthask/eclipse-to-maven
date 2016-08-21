@@ -1,6 +1,15 @@
 package com.shri.eclipsetomaven;
 
+import static com.shri.eclipsetomaven.ApplicationPropertyConstants.CONVERT_TO_MAVEN;
 import static com.shri.eclipsetomaven.ApplicationPropertyConstants.PRINT_DEPENDENCY_GRAPH;
+import static com.shri.eclipsetomaven.ApplicationPropertyConstants.PRINT_DEPENDENCY_GRAPH_FILEPATH;
+import static com.shri.eclipsetomaven.ApplicationPropertyConstants.PRINT_DEPENDENCY_GRAPH_IOTYPE;
+import static com.shri.eclipsetomaven.ApplicationPropertyConstants.PRINT_DEPENDENCY_GRAPH_IOTYPE_CONSOLE;
+import static com.shri.eclipsetomaven.ApplicationPropertyConstants.PRINT_DEPENDENCY_GRAPH_IOTYPE_FILE;
+import static com.shri.eclipsetomaven.pom.PomConstants.ARTIFACT_ID;
+import static com.shri.eclipsetomaven.pom.PomConstants.DEPENDENCY;
+import static com.shri.eclipsetomaven.pom.PomConstants.NAME;
+import static com.shri.eclipsetomaven.pom.PomConstants.VERSION;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -14,9 +23,9 @@ import com.shri.eclipsetomaven.pom.ClasspathToPomConverter;
 import com.shri.eclipsetomaven.util.ApplicationConfig;
 import com.shri.eclipsetomaven.util.ClasspathUtil;
 import com.shri.eclipsetomaven.util.FileUtil;
-import com.shri.eclipsetomaven.util.XMLUtil;
-import static com.shri.eclipsetomaven.pom.PomConstants.*;
-import static com.shri.eclipsetomaven.ApplicationPropertyConstants.*;
+import com.svashishtha.dom.DomEditor;
+import com.svashishtha.dom.DomParser;
+import com.svashishtha.dom.io.PrettyPrinter;
 
 public class WorkspaceClasspathToPomConverter {
 	Document pomDoc;
@@ -44,15 +53,15 @@ public class WorkspaceClasspathToPomConverter {
 		if ("true".equals(ApplicationConfig.INSTANCE
 				.getValue(PRINT_DEPENDENCY_GRAPH))) {
 			Element documentRoot = pomXmlDoc.getDocumentElement();
-			String projectName = XMLUtil.getTagValue(documentRoot, NAME);
+			String projectName = DomEditor.getTagValue(documentRoot, NAME);
 			print(projectName);
 			print("=========================");
-			List<Element> dependencies = XMLUtil.getElements(DEPENDENCY,
+			List<Element> dependencies = DomEditor.getElements(DEPENDENCY,
 					documentRoot);
 			for (Element dependency : dependencies) {
-				String dependencyName = XMLUtil.getTagValue(dependency,
+				String dependencyName = DomEditor.getTagValue(dependency,
 						ARTIFACT_ID);
-				String versionNumber = XMLUtil.getTagValue(documentRoot,
+				String versionNumber = DomEditor.getTagValue(documentRoot,
 						VERSION);
 				print("    |--" + dependencyName + "--" + versionNumber);
 			}
@@ -76,7 +85,7 @@ public class WorkspaceClasspathToPomConverter {
 
 	private Document createPomXmlDoc(File classpathFile) {
 		File classpathRoot = classpathFile.getParentFile();
-		Document classpathDoc = XMLUtil.getDocument(classpathFile);
+		Document classpathDoc = DomParser.getDocument(classpathFile);
 		ClasspathToPomConverter classpathToPomConverter = new ClasspathToPomConverter(
 				classpathDoc, workspaceRoot, classpathRoot);
 		return classpathToPomConverter.createPomDoc();
@@ -96,6 +105,6 @@ public class WorkspaceClasspathToPomConverter {
 	}
 
 	private void writePomToDisk(Document pomXmlDoc, File directoryToWriteTo) {
-		XMLUtil.writeDocument(pomXmlDoc, directoryToWriteTo, "pom.xml");
+		PrettyPrinter.printToFile(pomXmlDoc, directoryToWriteTo, "pom.xml");
 	}
 }

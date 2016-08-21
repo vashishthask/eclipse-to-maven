@@ -58,7 +58,6 @@ public class EclipseToMavenFoldersMover {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void moveFiles(Path moveFrom, Path moveTo) {
 		MoveTree walk = new MoveTree(moveFrom, moveTo);
 		EnumSet<FileVisitOption> opts = EnumSet.of(FileVisitOption.FOLLOW_LINKS);

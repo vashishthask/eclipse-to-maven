@@ -9,7 +9,8 @@ import org.w3c.dom.Element;
 import com.shri.eclipsetomaven.ClasspathentryElementsProcessor;
 import com.shri.eclipsetomaven.util.ClasspathUtil;
 import com.shri.eclipsetomaven.util.FileUtil;
-import com.shri.eclipsetomaven.util.XMLUtil;
+import com.svashishtha.dom.DomEditor;
+import com.svashishtha.dom.DomParser;
 
 public class CombinedaccessrulesFalseClasspathEntryProcessor implements
         ClasspathEntryProcessor {
@@ -60,7 +61,7 @@ public class CombinedaccessrulesFalseClasspathEntryProcessor implements
         File classpathFile = ClasspathUtil
                 .getClasspathFile(referencedProjectFolder);
         if (classpathFile != null) {
-            Document classpathDoc = XMLUtil.getDocument(classpathFile);
+            Document classpathDoc = DomParser.getDocument(classpathFile);
             parseClasspathDoc(classpathDoc, dependenciesElement);
         }
     }
@@ -84,7 +85,7 @@ public class CombinedaccessrulesFalseClasspathEntryProcessor implements
 
     private void parseClasspathDoc(Document classpathDoc,
             Element dependenciesElement) {
-        List<Element> classpathEntriesElements = XMLUtil.getElements(
+        List<Element> classpathEntriesElements = DomEditor.getElements(
                 ClasspathConstants.CLASSPATHENTRY_TAG_NAME,
                 classpathDoc.getDocumentElement());
         ClasspathentryElementsProcessor processor = new ClasspathentryElementsProcessor(

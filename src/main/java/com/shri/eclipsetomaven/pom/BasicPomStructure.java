@@ -10,7 +10,7 @@ import org.w3c.dom.Element;
 
 import com.shri.eclipsetomaven.classpathentry.ClasspathConstants;
 import com.shri.eclipsetomaven.util.ApplicationConfig;
-import com.shri.eclipsetomaven.util.XMLUtil;
+import com.svashishtha.dom.DomEditor;
 
 public class BasicPomStructure {
     
@@ -34,11 +34,11 @@ public class BasicPomStructure {
     }
 
     private void addAttributesToProjectElement(Element projectElement) {
-        XMLUtil.addAttributeToElement(pomDoc, projectElement, PomConstants.ATT_XMLNS,
+        DomEditor.addAttributeToElement(pomDoc, projectElement, PomConstants.ATT_XMLNS,
                 PomConstants.ATT_VALUE_XMLNS);
-        XMLUtil.addAttributeToElement(pomDoc, projectElement, PomConstants.ATT_XMLNS_XSI,
+        DomEditor.addAttributeToElement(pomDoc, projectElement, PomConstants.ATT_XMLNS_XSI,
                 PomConstants.ATT_VALUE_XMLNS_XSI);
-        XMLUtil.addAttributeToElement(pomDoc, projectElement,
+        DomEditor.addAttributeToElement(pomDoc, projectElement,
                 PomConstants.ATT_XSI_SCHEMA_LOCATION,
                 PomConstants.ATT_VALUE_XSI_SCHEMA_LOCATION);
     }

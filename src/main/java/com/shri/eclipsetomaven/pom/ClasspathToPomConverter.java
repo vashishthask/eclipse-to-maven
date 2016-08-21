@@ -15,7 +15,7 @@ import com.shri.eclipsetomaven.ClasspathentryElementsProcessor;
 import com.shri.eclipsetomaven.EclipseToMavenFoldersMover;
 import com.shri.eclipsetomaven.classpathentry.ClasspathConstants;
 import com.shri.eclipsetomaven.util.ApplicationConfig;
-import com.shri.eclipsetomaven.util.XMLUtil;
+import com.svashishtha.dom.DomEditor;
 
 public class ClasspathToPomConverter {
 
@@ -65,7 +65,7 @@ public class ClasspathToPomConverter {
 	private void addDependenciesFromClasspath(Element projectElement) {
         Element dependenciesElement = createDependencyManagementElement(projectElement);
 
-        List<Element> classpathEntryElements = XMLUtil.getElements(
+        List<Element> classpathEntryElements = DomEditor.getElements(
                 ClasspathConstants.CLASSPATHENTRY_TAG_NAME,
                 classpathDoc.getDocumentElement());
         ClasspathentryElementsProcessor processor = new ClasspathentryElementsProcessor(

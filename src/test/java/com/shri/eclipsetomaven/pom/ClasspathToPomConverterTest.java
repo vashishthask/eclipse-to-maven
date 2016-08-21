@@ -15,7 +15,8 @@ import org.junit.rules.TemporaryFolder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.shri.eclipsetomaven.util.XMLUtil;
+import com.svashishtha.dom.DomEditor;
+import com.svashishtha.dom.DomParser;
 
 public class ClasspathToPomConverterTest {
 	ClasspathToPomConverter converter;
@@ -33,15 +34,15 @@ public class ClasspathToPomConverterTest {
 	
 	@Test
 	public void testJarNamesWithoutVersion() throws Exception {
-		Document classpathDoc = XMLUtil.getDocument(this.getClass().getResourceAsStream("/classpath-sample2.xml"));
+		Document classpathDoc = DomParser.parse(this.getClass().getResourceAsStream("/classpath-sample2.xml"));
 		assertNotNull(classpathDoc);
 		converter = new ClasspathToPomConverter(classpathDoc, null, newFolder);
 		Document pomDoc = converter.createPomDoc();
-		List<Element> elements = XMLUtil.getElements("dependency", pomDoc.getDocumentElement());
+		List<Element> elements = DomEditor.getElements("dependency", pomDoc.getDocumentElement());
 		boolean elementFound = false;
 		for (Element element : elements) {
-			String artifactId = XMLUtil.getTagValue(element, "artifactId");
-			String jarVersion = XMLUtil.getTagValue(element, "version");
+			String artifactId = DomEditor.getTagValue(element, "artifactId");
+			String jarVersion = DomEditor.getTagValue(element, "version");
 			if("junit".equals(artifactId)){
 				elementFound = true;
 				assertEquals("", jarVersion);
