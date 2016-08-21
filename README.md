@@ -51,7 +51,7 @@ Please follow following `src/main/java/resources/application.properties` setup b
 
 
 ##Running eclipse-to-maven from Command Prompt
-Make sure JAVA_HOME is pointing to JDK-7.
+Make sure JAVA_HOME is pointing to JDK-1.7+.
 
 Run the following from command prompt:
 
