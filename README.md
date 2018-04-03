@@ -1,7 +1,7 @@
-#eclipse-to-maven
+# eclipse-to-maven
 [eclipse-to-maven](https://github.com/vashishthask/eclipse-to-maven/) mavenises the existing Eclipse based workspace.
 
-#Features
+# Features
 
 * Converts .classpath files into pom.xml
 * If required, prints the depdency graph of eclipse projects.
@@ -9,14 +9,14 @@
 * Removes spaces in the names of the folders. So "Calculator Component" becomes "CalculatorComponent"
 * Right now Mavenisation is limited to generating dependencies in the pom. However this is a good first step in moving forward. With small changes you should be able to run the build for your projects.
 
-#Getting Started
+# Getting Started
 
-##Preparation
+## Preparation
 * As eclipse-to-maven uses java.nio features, you need to have JDK 1.7+
 * Create the build of eclipse-to-maven using Maven "mvn clean install"
 * Copy existing workspace into a separate directory.
 
-##Setup
+## Setup
 Please follow following `src/main/java/resources/application.properties` setup before running the application
 * For converting existing eclipse workspace to maven, set 'convert.to.maven' property as 'true'. This switch is useful if you just want to print the dependency tree (read-only operation) for instance.
 
@@ -40,7 +40,7 @@ Please follow following `src/main/java/resources/application.properties` setup b
 
 	`maven.pom.groupId.default=...`
 
-##Running eclipse-to-maven from Eclipse
+## Running eclipse-to-maven from Eclipse
 
 * Import eclipse-to-maven in any eclipse workspace.
 * Right click EclipseToMaven --> Run As --> Run Configurations --> 
@@ -50,14 +50,14 @@ Please follow following `src/main/java/resources/application.properties` setup b
 
 
 
-##Running eclipse-to-maven from Command Prompt
+## Running eclipse-to-maven from Command Prompt
 Make sure JAVA_HOME is pointing to JDK-1.7+.
 
 Run the following from command prompt:
 
 	$ mvn clean install exec:java -Dexec.args="<eclipse workspace path>"
 	
-#Blog posts on eclipse-to-maven
+# Blog posts on eclipse-to-maven
 * [Converting Eclipse Projects to Maven : eclipse-to-maven Intro](http://sampreshan.svashishtha.com/2012/04/12/converting-eclipse-projects-to-maven-eclipse-to-maven-intro/)
 * [Converting Eclipse Workspace to Maven – Why eclipse-to-maven?](http://sampreshan.svashishtha.com/2012/04/30/converting-eclipse-workspace-to-maven-why-eclipse-to-maven/)
 
