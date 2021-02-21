@@ -1,7 +1,6 @@
 package com.svashishtha.eclipsetomaven.classpathentry;
 
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 

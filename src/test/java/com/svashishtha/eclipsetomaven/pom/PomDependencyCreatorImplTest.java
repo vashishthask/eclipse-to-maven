@@ -1,6 +1,6 @@
 package com.svashishtha.eclipsetomaven.pom;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Ignore;
