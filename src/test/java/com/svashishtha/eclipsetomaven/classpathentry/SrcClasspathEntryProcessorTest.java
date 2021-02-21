@@ -1,0 +1,75 @@
+package com.svashishtha.eclipsetomaven.classpathentry;
+
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+public class SrcClasspathEntryProcessorTest {
+	
+	SrcClasspathEntryProcessor processor = new SrcClasspathEntryProcessor();
+	
+	@Rule
+	public TemporaryFolder tempFolder = new TemporaryFolder();
+	File rootFolder;
+	
+	@Before
+	public void setup() throws IOException {
+		rootFolder = tempFolder.newFolder();
+	}
+	
+	@Test
+	public void testMoveSourcesToMavenFolders() throws IOException {
+		//setup java sources in a folder.
+	    File firstFolder = new File(rootFolder, "src");
+	    folderSetup(firstFolder, "com/svashishtha/test/main", "Sample.java", "Sample.txt");
+
+		File secondFolder = new File(rootFolder, "test");
+		folderSetup(secondFolder, "com/svashishtha/test/model", "SampleTest.java", "model.txt" );
+		
+		//setup java sources in a folder.
+	    File thirdFolder = new File(rootFolder, "Main");
+	    folderSetup(thirdFolder, "com/svashishtha/test/model", "Main.java", "main.txt" );
+	    
+		//setup java sources in a folder.
+	    File fourthFolder = new File(rootFolder, "Resources");
+	    folderSetup(fourthFolder, "com/svashishtha/test", "application.properties", "sample.xml" );
+		
+	    processor.moveSourcesToMavenFolders(rootFolder, "src");
+	    processor.moveSourcesToMavenFolders(rootFolder, "test");
+	    processor.moveSourcesToMavenFolders(rootFolder, "Main");
+	    processor.moveSourcesToMavenFolders(rootFolder, "Resources");
+		
+		File fileLocation = new File(rootFolder, "src/main/java/com/svashishtha/test/main/Sample.java");
+		assertTrue(fileLocation.exists());
+		
+		fileLocation = new File(rootFolder, "src/test/java/com/svashishtha/test/model/SampleTest.java");
+		assertTrue(fileLocation.exists());
+		
+		fileLocation = new File(rootFolder, "src/main/java/com/svashishtha/test/model/Main.java");
+		assertTrue(fileLocation.exists());
+		
+		fileLocation = new File(rootFolder, "src/main/resources/com/svashishtha/test/application.properties");
+		assertTrue(fileLocation.exists());
+		
+		fileLocation = new File(rootFolder, "src/main/resources/sample.xml");
+		assertTrue(fileLocation.exists());
+
+	}
+	
+    private void folderSetup(File folderToMove, String packageName, String firstFileName, String secondFileName) throws IOException {
+        File srcFolder = new File(folderToMove, packageName);
+		srcFolder.mkdirs();
+		File sourceFile = new File(srcFolder, firstFileName);
+		sourceFile.createNewFile();
+		
+		File textFile = new File(folderToMove, secondFileName);
+		textFile.createNewFile();
+    }
+
+}
